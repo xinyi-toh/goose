@@ -1,48 +1,34 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:20.9.0-alpine3.18' 
-            args '-p 3000:3000'
-        }
-    }
+	agent any
+	stages {
+		stage('Checkout SCM') {
+			steps {
+				git branch:'main', url: 'https://github.com/xinyi-toh/goose.git'
+			}
+		}
 
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
+        stage('Deploy') {
+			steps {
+				sh 'pwd'
+				sh 'ls'
+                sh 'chmod 777 ./kill.sh'
+                sh 'docker-compose build'
+				sh 'docker-compose up'
+                sh 'docker ps'
+                input message: 'Finished using the web site? (Click "Proceed" to continue)'
+                sh './kill.sh'
+			}
+		}
 
-        stage('Install Dependencies') {
-            steps {
-                script {
-                    sh 'npm install'
-                }
-            }
-        }
-
-        stage('Build') {
-            steps {
-                script {
-                    sh 'npm run build'
-                }
-            }
-        }
-
-        // stage('Deploy') {
-        //     steps {
-        //         script {
-        //             // Your deployment steps go here
-        //             // For example, you might deploy to a server or upload to a hosting service.
-        //             // This will depend on your specific deployment setup.
-        //         }
-        //     }
-        // }
-    }
-
-    // post {
-    //     always {
-    //         // Clean up steps go here if needed
-    //     }
-    // }
+		stage('OWASP DependencyCheck') {
+			steps {
+				dependencyCheck additionalArguments: '--format HTML --format XML', odcInstallation: 'Default'
+			}
+		}
+	}	
+	post {
+		success {
+			dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+		}
+	}
 }
