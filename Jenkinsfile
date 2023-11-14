@@ -7,6 +7,14 @@ pipeline {
 			}
 		}
 
+		stage('Set Script Permissions') {
+            steps {
+                script {
+                    sh 'chmod +x install_docker_compose.sh'
+                }
+            }
+        }
+
 		stage('Install Docker Compose') {
             steps {
                 script {
