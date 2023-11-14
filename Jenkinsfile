@@ -29,20 +29,20 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
-            steps {
-                script {
-                    // Your deployment steps go here
-                    // For example, you might deploy to a server or upload to a hosting service.
-                    // This will depend on your specific deployment setup.
-                }
-            }
-        }
+        // stage('Deploy') {
+        //     steps {
+        //         script {
+        //             // Your deployment steps go here
+        //             // For example, you might deploy to a server or upload to a hosting service.
+        //             // This will depend on your specific deployment setup.
+        //         }
+        //     }
+        // }
     }
 
-    post {
-        always {
-            // Clean up steps go here if needed
-        }
-    }
+    // post {
+    //     always {
+    //         // Clean up steps go here if needed
+    //     }
+    // }
 }
