@@ -1,23 +1,31 @@
 services:
-  nginxwebsvr:
-    image: nginx:alpine
-    container_name: nginxwebsvr_goose
+  # nginxwebsvr:
+  #   image: nginx:alpine
+  #   container_name: nginxwebsvr_goose
+  #   build: ./application
+  #   ports:
+  #     - "801:80"
+  #   volumes:
+  #     - ./application/Webfiles:/var/www/html
+
+  application:
+    container_name: application
     build: ./application
     ports:
-      - "801:80"
+      - "800:80"
     volumes:
-      - ./application/Webfiles:/var/www/html
+      - ./webapp/Webfiles:/var/www/html
 
-  mysqldb:
-    image: mysql:5.7
-    restart: always
-    volumes:
-      - ./mysql_data:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: pass
-      MYSQL_DATABASE: testdb
-      MYSQL_USER: user
-      MYSQL_PASSWORD: pass
+  # mysqldb:
+  #   image: mysql:5.7
+  #   restart: always
+  #   volumes:
+  #     - ./mysql_data:/var/lib/mysql
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: pass
+  #     MYSQL_DATABASE: testdb
+  #     MYSQL_USER: user
+  #     MYSQL_PASSWORD: pass
 
   git-server:
     build:
