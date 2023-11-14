@@ -10,12 +10,8 @@ pipeline {
 		stage('Install Docker Compose') {
             steps {
                 script {
-					sh '''
-						curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o docker-compose
-						chmod +x docker-compose
-						mv docker-compose $WORKSPACE/
-					'''
-				}
+                    sh './install_docker_compose.sh'
+                }
             }
         }
 
