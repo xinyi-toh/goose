@@ -1,4 +1,15 @@
+version: '3'
 services:
+  application:
+    container_name: application
+    build:
+      dockerfile: ./application/Webfiles/Dockerfile
+      context: .
+    ports:
+      - "800:80"
+    volumes:
+      - ./application/Webfiles:/var/www/html
+
   # nginxwebsvr:
   #   image: nginx:alpine
   #   container_name: nginxwebsvr_goose
@@ -8,13 +19,6 @@ services:
   #   volumes:
   #     - ./application/Webfiles:/var/www/html
 
-  application:
-    container_name: application
-    build: ./application
-    ports:
-      - "800:80"
-    volumes:
-      - ./webapp/Webfiles:/var/www/html
 
   # mysqldb:
   #   image: mysql:5.7
@@ -29,11 +33,12 @@ services:
 
   git-server:
     build:
-      dockerfile: gitserver.Dockerfile
+      dockerfile: ./git_server/gitserver.Dockerfile
       context: .
     restart: always
     ports:
       - "3002:3000"
     volumes:
       - ./repos:/var/www/git
+
 
