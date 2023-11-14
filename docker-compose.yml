@@ -2,8 +2,11 @@ services:
   nginxwebsvr:
     image: nginx:alpine
     container_name: nginxwebsvr_goose
+    build: ./application
     ports:
       - "801:80"
+    volumes:
+      - ./application/Webfiles:/var/www/html
 
   mysqldb:
     image: mysql:5.7
@@ -25,3 +28,4 @@ services:
       - "3002:3000"
     volumes:
       - ./repos:/var/www/git
+
