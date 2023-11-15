@@ -41,4 +41,6 @@ services:
     volumes:
       - ./repos:/var/www/git
 
-
+volumes:
+  repos:
+  webapp:
