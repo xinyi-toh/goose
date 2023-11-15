@@ -6,7 +6,7 @@ services:
       dockerfile: ./application/Webfiles/Dockerfile
       context: .
     ports:
-      - "800:80"
+      - "8888:80"
     volumes:
       - ./application/Webfiles:/var/www/html
 
