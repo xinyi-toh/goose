@@ -4,5 +4,5 @@ set -x
 docker kill application
 docker rm application
 
-docker kill git_server
-docker rm git_server
+docker kill git-server
+docker rm git-server
